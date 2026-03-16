@@ -289,39 +289,58 @@ body {
 }
 
 
+/* --- GRANTS & AWARDS CARDS --- */
 .service-list {
   display: grid;
-  /* Changed to 1fr 1fr for horizontal side-by-side boxes */
-  grid-template-columns: 1fr 1fr; 
+  grid-template-columns: 1fr 1fr; /* Two columns */
   gap: 20px;
-}
-
-/* Ensure single column on mobile/small tablets */
-@media (max-width: 768px) {
-  .service-list {
-    grid-template-columns: 1fr;
-  }
+  list-style: none;
+  padding: 0;
 }
 
 .service-item {
   position: relative;
-  background: var(--border-gradient-onyx);
-  padding: 20px;
+  background: #202022; /* Solid dark gray background */
+  padding: 25px;
   border-radius: 14px;
-  box-shadow: var(--shadow-2);
+  border: 1px solid #383838; /* Subtle border */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
+  transition: all 0.3s ease;
   z-index: 1;
-  display: flex; /* Helps align icon and content if needed */
+  display: flex;
   flex-direction: column;
-  align-items: center;
+  justify-content: center;
 }
 
-.service-content-box { 
-  text-align: center; 
+.service-item:hover {
+  transform: translateY(-5px);
+  border-color: var(--accent-color); /* Teal highlight on hover */
+  background: #252527;
+}
+
+.service-item-title {
+  color: var(--text-main);
+  margin-bottom: 5px;
+  font-size: 1.1rem;
 }
 
 time {
-  color: #a0a0a0; /* Using a hex code for a more professional gray */
-  font-size: 13px;
+  color: #00adb5; /* Using your accent color for the date */
+  font-size: 0.85rem;
+  font-weight: 600;
   display: block;
-  margin-bottom: 8px;
+  margin-bottom: 10px;
+}
+
+.service-item-text {
+  color: #a0a0a0; /* Muted text for the description */
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+
+/* Fix for small screens */
+@media (max-width: 768px) {
+  .service-list {
+    grid-template-columns: 1fr;
+  }
 }
