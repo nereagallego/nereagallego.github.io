@@ -287,3 +287,41 @@ body {
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
   border: 1px solid var(--border-color);
 }
+
+
+.service-list {
+  display: grid;
+  /* Changed to 1fr 1fr for horizontal side-by-side boxes */
+  grid-template-columns: 1fr 1fr; 
+  gap: 20px;
+}
+
+/* Ensure single column on mobile/small tablets */
+@media (max-width: 768px) {
+  .service-list {
+    grid-template-columns: 1fr;
+  }
+}
+
+.service-item {
+  position: relative;
+  background: var(--border-gradient-onyx);
+  padding: 20px;
+  border-radius: 14px;
+  box-shadow: var(--shadow-2);
+  z-index: 1;
+  display: flex; /* Helps align icon and content if needed */
+  flex-direction: column;
+  align-items: center;
+}
+
+.service-content-box { 
+  text-align: center; 
+}
+
+time {
+  color: #a0a0a0; /* Using a hex code for a more professional gray */
+  font-size: 13px;
+  display: block;
+  margin-bottom: 8px;
+}
