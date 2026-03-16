@@ -7,10 +7,8 @@
   <style>
     /* --- COLOR PALETTE & VARIABLES --- */
     :root {
-      /* Change these variables to easily customize your website's colors */
       --bg-color: #121212;
       --card-bg: #1e1e1e;
-      --sidebar-bg: #252526;
       --text-main: #e0e0e0;
       --text-muted: #a0a0a0;
       --accent-color: #00adb5; /* Teal accent */
@@ -29,111 +27,71 @@
       background-color: var(--bg-color);
       color: var(--text-main);
       line-height: 1.6;
-      display: flex;
-      justify-content: center;
-      padding: 2rem;
+      /* Add padding to the top so content isn't hidden behind the fixed header */
+      padding-top: 80px; 
     }
 
-    .container {
-      display: flex;
-      flex-direction: row;
-      max-width: 1100px;
+    /* --- TOP NAVIGATION BAR --- */
+    .header {
+      position: fixed;
+      top: 0;
+      left: 0;
       width: 100%;
+      height: 70px;
       background-color: var(--card-bg);
-      border-radius: 12px;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-      overflow: hidden;
-    }
-
-    /* --- SIDEBAR --- */
-    .sidebar {
-      width: 300px;
-      background-color: var(--sidebar-bg);
-      padding: 2rem;
-      border-right: 1px solid var(--border-color);
-      display: flex;
-      flex-direction: column;
-    }
-
-    .profile-pic {
-      width: 150px;
-      height: 150px;
-      border-radius: 50%;
-      background-color: var(--border-color);
-      margin: 0 auto 1.5rem auto;
-      border: 3px solid var(--accent-color);
-      object-fit: cover;
-    }
-
-    .sidebar h1 {
-      text-align: center;
-      font-size: 1.5rem;
-      margin-bottom: 0.5rem;
-    }
-
-    .sidebar .title {
-      text-align: center;
-      color: var(--text-muted);
-      font-size: 0.9rem;
-      margin-bottom: 1.5rem;
-    }
-
-    .info-list {
-      list-style: none;
-      margin-bottom: 2rem;
-      font-size: 0.85rem;
-    }
-
-    .info-list li {
-      margin-bottom: 0.8rem;
+      border-bottom: 1px solid var(--border-color);
       display: flex;
       justify-content: space-between;
-      border-bottom: 1px solid var(--border-color);
-      padding-bottom: 0.3rem;
+      align-items: center;
+      padding: 0 5%;
+      z-index: 1000;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.3);
     }
 
-    .info-list span:first-child {
-      color: var(--text-muted);
+    .header-logo {
+      font-size: 1.5rem;
       font-weight: bold;
+      color: var(--accent-color);
+      letter-spacing: 1px;
     }
 
     .nav-menu {
       list-style: none;
-      margin-top: auto;
+      display: flex;
+      gap: 0.5rem;
     }
 
-    .nav-menu li {
-      margin-bottom: 0.5rem;
-    }
-
-    .nav-menu button {
-      width: 100%;
+    .nav-btn {
       background: none;
       border: none;
       color: var(--text-main);
-      text-align: left;
-      padding: 0.8rem 1rem;
+      padding: 0.5rem 1rem;
       font-size: 1rem;
       cursor: pointer;
       border-radius: 6px;
       transition: all 0.3s ease;
+      font-weight: 500;
     }
 
-    .nav-menu button:hover {
+    .nav-btn:hover {
       background-color: var(--border-color);
       color: var(--accent-color);
     }
 
-    .nav-menu button.active {
+    .nav-btn.active {
       background-color: var(--accent-color);
       color: #fff;
     }
 
-    /* --- MAIN CONTENT --- */
-    .content-area {
-      flex: 1;
+    /* --- MAIN CONTENT CONTAINER --- */
+    .container {
+      max-width: 900px;
+      margin: 2rem auto;
+      background-color: var(--card-bg);
+      border-radius: 12px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
       padding: 3rem;
-      position: relative;
+      min-height: 60vh;
     }
 
     .section {
@@ -154,7 +112,55 @@
       display: inline-block;
     }
 
-    /* Resume Timeline */
+    /* --- PROFILE HERO (Inside About Section) --- */
+    .profile-hero {
+      display: flex;
+      align-items: center;
+      gap: 2rem;
+      margin-bottom: 2rem;
+      padding-bottom: 2rem;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .profile-pic {
+      width: 150px;
+      height: 150px;
+      border-radius: 50%;
+      background-color: var(--border-color);
+      border: 3px solid var(--accent-color);
+      object-fit: cover;
+    }
+
+    .profile-info h1 {
+      font-size: 2.5rem;
+      margin-bottom: 0.2rem;
+      line-height: 1.2;
+    }
+
+    .profile-info .title {
+      color: var(--text-muted);
+      font-size: 1.1rem;
+      margin-bottom: 1rem;
+    }
+
+    .info-list {
+      list-style: none;
+      font-size: 0.9rem;
+      display: flex;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+    }
+
+    .info-list li {
+      color: var(--text-muted);
+    }
+    
+    .info-list span {
+      font-weight: bold;
+      color: var(--text-main);
+    }
+
+    /* --- TIMELINE & SKILLS --- */
     .timeline {
       border-left: 2px solid var(--border-color);
       padding-left: 1.5rem;
@@ -195,7 +201,6 @@
       font-size: 0.95rem;
     }
 
-    /* Skills */
     .skill-bar {
       margin-bottom: 1rem;
     }
@@ -224,125 +229,130 @@
       to { opacity: 1; transform: translateY(0); }
     }
 
-    /* Responsive */
+    /* --- RESPONSIVE DESIGN --- */
     @media (max-width: 768px) {
-      .container {
+      .header {
         flex-direction: column;
-      }
-      .sidebar {
-        width: 100%;
-        border-right: none;
-        border-bottom: 1px solid var(--border-color);
+        height: auto;
+        padding: 1rem;
       }
       .nav-menu {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 0.5rem;
         margin-top: 1rem;
+        flex-wrap: wrap;
+        justify-content: center;
       }
-      .nav-menu li {
-        flex: 1;
+      body {
+        padding-top: 120px;
       }
-      .nav-menu button {
+      .profile-hero {
+        flex-direction: column;
         text-align: center;
+      }
+      .info-list {
+        justify-content: center;
+      }
+      .container {
+        padding: 1.5rem;
+        margin: 1rem;
       }
     }
   </style>
 </head>
 <body>
 
-  <div class="container">
-    <aside class="sidebar">
-      <img src="https://via.placeholder.com/150" alt="Profile Photo" class="profile-pic">
-      <h1>Your Name</h1>
-      <p class="title">Professional Title / Student</p>
+  <header class="header">
+    <div class="header-logo">YN.</div> <ul class="nav-menu">
+      <li><button class="nav-btn active" onclick="openSection(event, 'about')">About</button></li>
+      <li><button class="nav-btn" onclick="openSection(event, 'resume')">Resume</button></li>
+      <li><button class="nav-btn" onclick="openSection(event, 'publications')">Publications</button></li>
+      <li><button class="nav-btn" onclick="openSection(event, 'contact')">Contact</button></li>
+    </ul>
+  </header>
 
-      <ul class="info-list">
-        <li><span>Email:</span> <span>you@example.com</span></li>
-        <li><span>Location:</span> <span>City, Country</span></li>
-        <li><span>Age:</span> <span>XX</span></li>
-      </ul>
-
-      <ul class="nav-menu">
-        <li><button class="nav-btn active" onclick="openSection(event, 'about')">About</button></li>
-        <li><button class="nav-btn" onclick="openSection(event, 'resume')">Resume</button></li>
-        <li><button class="nav-btn" onclick="openSection(event, 'publications')">Publications</button></li>
-        <li><button class="nav-btn" onclick="openSection(event, 'contact')">Contact</button></li>
-      </ul>
-    </aside>
-
-    <main class="content-area">
+  <main class="container">
+    
+    <section id="about" class="section active">
       
-      <section id="about" class="section active">
-        <h2>About Me</h2>
-        <p>Hello! I am a professional/student specializing in [Your Field]. Welcome to my personal website. Here you can find an overview of my academic journey, professional experience, and current projects.</p>
-        <br>
-        <p>My main topics of interest include:</p>
-        <ul style="margin-left: 2rem; margin-top: 1rem; color: var(--text-muted);">
-          <li>Topic 1 (e.g., Machine Learning)</li>
-          <li>Topic 2 (e.g., Web Development)</li>
-          <li>Topic 3 (e.g., Data Analysis)</li>
-        </ul>
-      </section>
+      <div class="profile-hero">
+        <img src="https://via.placeholder.com/150" alt="Profile Photo" class="profile-pic">
+        <div class="profile-info">
+          <h1>Your Name</h1>
+          <p class="title">Professional Title / Student</p>
+          <ul class="info-list">
+            <li><span>Location:</span> City, Country</li>
+            <li><span>Email:</span> you@example.com</li>
+          </ul>
+        </div>
+      </div>
 
-      <section id="resume" class="section">
-        <h2>Resume</h2>
-        
-        <h3 style="margin: 1.5rem 0 1rem 0;">Education</h3>
-        <div class="timeline">
-          <div class="timeline-item">
-            <div class="timeline-date">2021 — Present</div>
-            <div class="timeline-title">Degree Name - University Name</div>
-            <div class="timeline-desc">Details about your degree, honors, or thesis topic goes here.</div>
-          </div>
-          <div class="timeline-item">
-            <div class="timeline-date">2017 — 2021</div>
-            <div class="timeline-title">Previous Degree - University Name</div>
-            <div class="timeline-desc">Graduated with distinction. Relevant coursework included X, Y, and Z.</div>
-          </div>
-        </div>
+      <h2>About Me</h2>
+      <p>Hello! I am a professional/student specializing in [Your Field]. Welcome to my personal website. Here you can find an overview of my academic journey, professional experience, and current projects.</p>
+      <br>
+      <p>My main topics of interest include:</p>
+      <ul style="margin-left: 2rem; margin-top: 1rem; color: var(--text-muted);">
+        <li>Topic 1 (e.g., Machine Learning)</li>
+        <li>Topic 2 (e.g., Web Development)</li>
+        <li>Topic 3 (e.g., Data Analysis)</li>
+      </ul>
+    </section>
 
-        <h3 style="margin: 2rem 0 1rem 0;">Skills</h3>
-        <div class="skill-bar">
-          <div class="skill-name"><span>Python</span> <span>90%</span></div>
-          <div class="progress"><div class="progress-fill" style="width: 90%;"></div></div>
+    <section id="resume" class="section">
+      <h2>Resume</h2>
+      
+      <h3 style="margin: 1.5rem 0 1rem 0;">Education</h3>
+      <div class="timeline">
+        <div class="timeline-item">
+          <div class="timeline-date">2021 — Present</div>
+          <div class="timeline-title">Degree Name - University Name</div>
+          <div class="timeline-desc">Details about your degree, honors, or thesis topic goes here.</div>
         </div>
-        <div class="skill-bar">
-          <div class="skill-name"><span>HTML / CSS</span> <span>80%</span></div>
-          <div class="progress"><div class="progress-fill" style="width: 80%;"></div></div>
+        <div class="timeline-item">
+          <div class="timeline-date">2017 — 2021</div>
+          <div class="timeline-title">Previous Degree - University Name</div>
+          <div class="timeline-desc">Graduated with distinction. Relevant coursework included X, Y, and Z.</div>
         </div>
-        <div class="skill-bar">
-          <div class="skill-name"><span>SQL</span> <span>60%</span></div>
-          <div class="progress"><div class="progress-fill" style="width: 60%;"></div></div>
-        </div>
-      </section>
+      </div>
 
-      <section id="publications" class="section">
-        <h2>Publications & Projects</h2>
-        <div style="margin-bottom: 1.5rem; padding: 1rem; background-color: var(--sidebar-bg); border-radius: 8px;">
-          <h3 style="color: var(--accent-color); margin-bottom: 0.5rem;">Project Title / Paper Title (Year)</h3>
-          <p style="font-size: 0.9rem; color: var(--text-muted);">Authors / Collaborators</p>
-          <p style="margin-top: 0.5rem;">A brief description of the project, what you achieved, or the abstract of the publication.</p>
-        </div>
-        <div style="margin-bottom: 1.5rem; padding: 1rem; background-color: var(--sidebar-bg); border-radius: 8px;">
-          <h3 style="color: var(--accent-color); margin-bottom: 0.5rem;">Another Cool Project (Year)</h3>
-          <p style="font-size: 0.9rem; color: var(--text-muted);">Authors / Collaborators</p>
-          <p style="margin-top: 0.5rem;">Details about this work and technologies used.</p>
-        </div>
-      </section>
+      <h3 style="margin: 2rem 0 1rem 0;">Skills</h3>
+      <div class="skill-bar">
+        <div class="skill-name"><span>Python</span> <span>90%</span></div>
+        <div class="progress"><div class="progress-fill" style="width: 90%;"></div></div>
+      </div>
+      <div class="skill-bar">
+        <div class="skill-name"><span>HTML / CSS</span> <span>80%</span></div>
+        <div class="progress"><div class="progress-fill" style="width: 80%;"></div></div>
+      </div>
+      <div class="skill-bar">
+        <div class="skill-name"><span>SQL</span> <span>60%</span></div>
+        <div class="progress"><div class="progress-fill" style="width: 60%;"></div></div>
+      </div>
+    </section>
 
-      <section id="contact" class="section">
-        <h2>Contact</h2>
-        <p>Feel free to reach out to me via email or connect with me on professional networks.</p>
-        <div style="margin-top: 2rem;">
-          <p><strong>Email:</strong> <a href="mailto:you@example.com" style="color: var(--accent-color); text-decoration: none;">you@example.com</a></p>
-          <p style="margin-top: 1rem;"><strong>GitHub:</strong> <a href="#" style="color: var(--accent-color); text-decoration: none;">github.com/yourusername</a></p>
-          <p style="margin-top: 1rem;"><strong>LinkedIn:</strong> <a href="#" style="color: var(--accent-color); text-decoration: none;">linkedin.com/in/yourusername</a></p>
-        </div>
-      </section>
+    <section id="publications" class="section">
+      <h2>Publications & Projects</h2>
+      <div style="margin-bottom: 1.5rem; padding: 1.5rem; background-color: #252526; border-radius: 8px;">
+        <h3 style="color: var(--accent-color); margin-bottom: 0.5rem;">Project Title / Paper Title (Year)</h3>
+        <p style="font-size: 0.9rem; color: var(--text-muted);">Authors / Collaborators</p>
+        <p style="margin-top: 0.5rem;">A brief description of the project, what you achieved, or the abstract of the publication.</p>
+      </div>
+      <div style="margin-bottom: 1.5rem; padding: 1.5rem; background-color: #252526; border-radius: 8px;">
+        <h3 style="color: var(--accent-color); margin-bottom: 0.5rem;">Another Cool Project (Year)</h3>
+        <p style="font-size: 0.9rem; color: var(--text-muted);">Authors / Collaborators</p>
+        <p style="margin-top: 0.5rem;">Details about this work and technologies used.</p>
+      </div>
+    </section>
 
-    </main>
-  </div>
+    <section id="contact" class="section">
+      <h2>Contact</h2>
+      <p>Feel free to reach out to me via email or connect with me on professional networks.</p>
+      <div style="margin-top: 2rem; background-color: #252526; padding: 2rem; border-radius: 8px;">
+        <p><strong>Email:</strong> <a href="mailto:you@example.com" style="color: var(--accent-color); text-decoration: none;">you@example.com</a></p>
+        <p style="margin-top: 1rem;"><strong>GitHub:</strong> <a href="#" style="color: var(--accent-color); text-decoration: none;">github.com/yourusername</a></p>
+        <p style="margin-top: 1rem;"><strong>LinkedIn:</strong> <a href="#" style="color: var(--accent-color); text-decoration: none;">linkedin.com/in/yourusername</a></p>
+      </div>
+    </section>
+
+  </main>
 
   <script>
     function openSection(evt, sectionName) {
@@ -364,6 +374,9 @@
       document.getElementById(sectionName).style.display = "block";
       document.getElementById(sectionName).classList.add("active");
       evt.currentTarget.classList.add("active");
+      
+      // Optional: Scroll to top of container when a new tab is clicked
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     }
   </script>
 </body>
