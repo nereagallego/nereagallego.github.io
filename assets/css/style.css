@@ -275,20 +275,15 @@ body {
 
 .icon-box {
   position: relative;
-  background: var(--card-bg);
-  width: 45px;
-  height: 45px;
+  background: var(--border--gradient-onyx);
+  width: 30px;
+  height: 30px;
   border-radius: 8px;
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 22px;
+  font-size: 16px;
   color: var(--accent-color);
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
   border: 1px solid var(--border-color);
-}
-
-/* Optional: Subtle glow effect for the icon */
-.icon-box ion-icon {
-  --stroke-width: 32px;
 }
