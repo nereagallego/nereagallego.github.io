@@ -27,8 +27,7 @@
       background-color: var(--bg-color);
       color: var(--text-main);
       line-height: 1.6;
-      /* Add padding to the top so content isn't hidden behind the fixed header */
-      padding-top: 80px; 
+      padding-top: 80px; /* Space for the fixed header */
     }
 
     /* --- TOP NAVIGATION BAR --- */
@@ -65,7 +64,7 @@
       background: none;
       border: none;
       color: var(--text-main);
-      padding: 0.5rem 1rem;
+      padding: 0.5rem 1.2rem;
       font-size: 1rem;
       cursor: pointer;
       border-radius: 6px;
@@ -83,14 +82,76 @@
       color: #fff;
     }
 
-    /* --- MAIN CONTENT CONTAINER --- */
-    .container {
-      max-width: 900px;
+    /* --- MAIN LAYOUT WRAPPER --- */
+    .layout-wrapper {
+      display: flex;
+      max-width: 1200px;
       margin: 2rem auto;
+      gap: 2rem;
+      padding: 0 2rem;
+      align-items: flex-start; /* Crucial for sticky sidebar to work */
+    }
+
+    /* --- SIDEBAR (Left Column) --- */
+    .sidebar {
+      width: 300px;
       background-color: var(--card-bg);
       border-radius: 12px;
+      padding: 2rem;
       box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+      position: sticky;
+      top: 100px; /* Sticks 100px from the top (below header) */
+      text-align: center;
+      flex-shrink: 0;
+    }
+
+    .profile-pic {
+      width: 140px;
+      height: 140px;
+      border-radius: 50%;
+      background-color: var(--border-color);
+      border: 3px solid var(--accent-color);
+      object-fit: cover;
+      margin-bottom: 1rem;
+    }
+
+    .sidebar h1 {
+      font-size: 1.5rem;
+      margin-bottom: 0.2rem;
+    }
+
+    .sidebar .title {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .info-list {
+      list-style: none;
+      font-size: 0.85rem;
+      text-align: left;
+    }
+
+    .info-list li {
+      margin-bottom: 0.8rem;
+      display: flex;
+      justify-content: space-between;
+      border-bottom: 1px solid var(--border-color);
+      padding-bottom: 0.3rem;
+    }
+
+    .info-list span:first-child {
+      color: var(--text-muted);
+      font-weight: bold;
+    }
+
+    /* --- CONTENT AREA (Right Column) --- */
+    .content-area {
+      flex: 1;
+      background-color: var(--card-bg);
+      border-radius: 12px;
       padding: 3rem;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
       min-height: 60vh;
     }
 
@@ -112,55 +173,7 @@
       display: inline-block;
     }
 
-    /* --- PROFILE HERO (Inside About Section) --- */
-    .profile-hero {
-      display: flex;
-      align-items: center;
-      gap: 2rem;
-      margin-bottom: 2rem;
-      padding-bottom: 2rem;
-      border-bottom: 1px solid var(--border-color);
-    }
-
-    .profile-pic {
-      width: 150px;
-      height: 150px;
-      border-radius: 50%;
-      background-color: var(--border-color);
-      border: 3px solid var(--accent-color);
-      object-fit: cover;
-    }
-
-    .profile-info h1 {
-      font-size: 2.5rem;
-      margin-bottom: 0.2rem;
-      line-height: 1.2;
-    }
-
-    .profile-info .title {
-      color: var(--text-muted);
-      font-size: 1.1rem;
-      margin-bottom: 1rem;
-    }
-
-    .info-list {
-      list-style: none;
-      font-size: 0.9rem;
-      display: flex;
-      gap: 1.5rem;
-      flex-wrap: wrap;
-    }
-
-    .info-list li {
-      color: var(--text-muted);
-    }
-    
-    .info-list span {
-      font-weight: bold;
-      color: var(--text-main);
-    }
-
-    /* --- TIMELINE & SKILLS --- */
+    /* --- TIMELINE & SKILLS (Content Styling) --- */
     .timeline {
       border-left: 2px solid var(--border-color);
       padding-left: 1.5rem;
@@ -230,7 +243,20 @@
     }
 
     /* --- RESPONSIVE DESIGN --- */
-    @media (max-width: 768px) {
+    @media (max-width: 900px) {
+      .layout-wrapper {
+        flex-direction: column;
+        align-items: center;
+      }
+      .sidebar {
+        width: 100%;
+        max-width: 500px;
+        position: static; /* Removes sticky behavior on small screens */
+      }
+      .content-area {
+        width: 100%;
+        padding: 2rem;
+      }
       .header {
         flex-direction: column;
         height: auto;
@@ -242,18 +268,7 @@
         justify-content: center;
       }
       body {
-        padding-top: 120px;
-      }
-      .profile-hero {
-        flex-direction: column;
-        text-align: center;
-      }
-      .info-list {
-        justify-content: center;
-      }
-      .container {
-        padding: 1.5rem;
-        margin: 1rem;
+        padding-top: 130px; /* More space for stacked header */
       }
     }
   </style>
@@ -269,90 +284,92 @@
     </ul>
   </header>
 
-  <main class="container">
+  <div class="layout-wrapper">
     
-    <section id="about" class="section active">
-      
-      <div class="profile-hero">
-        <img src="https://via.placeholder.com/150" alt="Profile Photo" class="profile-pic">
-        <div class="profile-info">
-          <h1>Your Name</h1>
-          <p class="title">Professional Title / Student</p>
-          <ul class="info-list">
-            <li><span>Location:</span> City, Country</li>
-            <li><span>Email:</span> you@example.com</li>
-          </ul>
-        </div>
-      </div>
+    <aside class="sidebar">
+      <img src="https://via.placeholder.com/150" alt="Profile Photo" class="profile-pic">
+      <h1>Your Name</h1>
+      <p class="title">Professional Title / Student</p>
 
-      <h2>About Me</h2>
-      <p>Hello! I am a professional/student specializing in [Your Field]. Welcome to my personal website. Here you can find an overview of my academic journey, professional experience, and current projects.</p>
-      <br>
-      <p>My main topics of interest include:</p>
-      <ul style="margin-left: 2rem; margin-top: 1rem; color: var(--text-muted);">
-        <li>Topic 1 (e.g., Machine Learning)</li>
-        <li>Topic 2 (e.g., Web Development)</li>
-        <li>Topic 3 (e.g., Data Analysis)</li>
+      <ul class="info-list">
+        <li><span>Email:</span> <span>you@example.com</span></li>
+        <li><span>Location:</span> <span>City, Country</span></li>
+        <li><span>Age:</span> <span>XX</span></li>
       </ul>
-    </section>
+    </aside>
 
-    <section id="resume" class="section">
-      <h2>Resume</h2>
+    <main class="content-area">
       
-      <h3 style="margin: 1.5rem 0 1rem 0;">Education</h3>
-      <div class="timeline">
-        <div class="timeline-item">
-          <div class="timeline-date">2021 — Present</div>
-          <div class="timeline-title">Degree Name - University Name</div>
-          <div class="timeline-desc">Details about your degree, honors, or thesis topic goes here.</div>
+      <section id="about" class="section active">
+        <h2>About Me</h2>
+        <p>Hello! I am a professional/student specializing in [Your Field]. Welcome to my personal website. Here you can find an overview of my academic journey, professional experience, and current projects.</p>
+        <br>
+        <p>My main topics of interest include:</p>
+        <ul style="margin-left: 2rem; margin-top: 1rem; color: var(--text-muted);">
+          <li>Topic 1 (e.g., Machine Learning)</li>
+          <li>Topic 2 (e.g., Web Development)</li>
+          <li>Topic 3 (e.g., Data Analysis)</li>
+        </ul>
+      </section>
+
+      <section id="resume" class="section">
+        <h2>Resume</h2>
+        
+        <h3 style="margin: 1.5rem 0 1rem 0;">Education</h3>
+        <div class="timeline">
+          <div class="timeline-item">
+            <div class="timeline-date">2021 — Present</div>
+            <div class="timeline-title">Degree Name - University Name</div>
+            <div class="timeline-desc">Details about your degree, honors, or thesis topic goes here.</div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-date">2017 — 2021</div>
+            <div class="timeline-title">Previous Degree - University Name</div>
+            <div class="timeline-desc">Graduated with distinction. Relevant coursework included X, Y, and Z.</div>
+          </div>
         </div>
-        <div class="timeline-item">
-          <div class="timeline-date">2017 — 2021</div>
-          <div class="timeline-title">Previous Degree - University Name</div>
-          <div class="timeline-desc">Graduated with distinction. Relevant coursework included X, Y, and Z.</div>
+
+        <h3 style="margin: 2rem 0 1rem 0;">Skills</h3>
+        <div class="skill-bar">
+          <div class="skill-name"><span>Python</span> <span>90%</span></div>
+          <div class="progress"><div class="progress-fill" style="width: 90%;"></div></div>
         </div>
-      </div>
+        <div class="skill-bar">
+          <div class="skill-name"><span>HTML / CSS</span> <span>80%</span></div>
+          <div class="progress"><div class="progress-fill" style="width: 80%;"></div></div>
+        </div>
+        <div class="skill-bar">
+          <div class="skill-name"><span>SQL</span> <span>60%</span></div>
+          <div class="progress"><div class="progress-fill" style="width: 60%;"></div></div>
+        </div>
+      </section>
 
-      <h3 style="margin: 2rem 0 1rem 0;">Skills</h3>
-      <div class="skill-bar">
-        <div class="skill-name"><span>Python</span> <span>90%</span></div>
-        <div class="progress"><div class="progress-fill" style="width: 90%;"></div></div>
-      </div>
-      <div class="skill-bar">
-        <div class="skill-name"><span>HTML / CSS</span> <span>80%</span></div>
-        <div class="progress"><div class="progress-fill" style="width: 80%;"></div></div>
-      </div>
-      <div class="skill-bar">
-        <div class="skill-name"><span>SQL</span> <span>60%</span></div>
-        <div class="progress"><div class="progress-fill" style="width: 60%;"></div></div>
-      </div>
-    </section>
+      <section id="publications" class="section">
+        <h2>Publications & Projects</h2>
+        <div style="margin-bottom: 1.5rem; padding: 1.5rem; background-color: #252526; border-radius: 8px;">
+          <h3 style="color: var(--accent-color); margin-bottom: 0.5rem;">Project Title / Paper Title (Year)</h3>
+          <p style="font-size: 0.9rem; color: var(--text-muted);">Authors / Collaborators</p>
+          <p style="margin-top: 0.5rem;">A brief description of the project, what you achieved, or the abstract of the publication.</p>
+        </div>
+        <div style="margin-bottom: 1.5rem; padding: 1.5rem; background-color: #252526; border-radius: 8px;">
+          <h3 style="color: var(--accent-color); margin-bottom: 0.5rem;">Another Cool Project (Year)</h3>
+          <p style="font-size: 0.9rem; color: var(--text-muted);">Authors / Collaborators</p>
+          <p style="margin-top: 0.5rem;">Details about this work and technologies used.</p>
+        </div>
+      </section>
 
-    <section id="publications" class="section">
-      <h2>Publications & Projects</h2>
-      <div style="margin-bottom: 1.5rem; padding: 1.5rem; background-color: #252526; border-radius: 8px;">
-        <h3 style="color: var(--accent-color); margin-bottom: 0.5rem;">Project Title / Paper Title (Year)</h3>
-        <p style="font-size: 0.9rem; color: var(--text-muted);">Authors / Collaborators</p>
-        <p style="margin-top: 0.5rem;">A brief description of the project, what you achieved, or the abstract of the publication.</p>
-      </div>
-      <div style="margin-bottom: 1.5rem; padding: 1.5rem; background-color: #252526; border-radius: 8px;">
-        <h3 style="color: var(--accent-color); margin-bottom: 0.5rem;">Another Cool Project (Year)</h3>
-        <p style="font-size: 0.9rem; color: var(--text-muted);">Authors / Collaborators</p>
-        <p style="margin-top: 0.5rem;">Details about this work and technologies used.</p>
-      </div>
-    </section>
+      <section id="contact" class="section">
+        <h2>Contact</h2>
+        <p>Feel free to reach out to me via email or connect with me on professional networks.</p>
+        <div style="margin-top: 2rem; background-color: #252526; padding: 2rem; border-radius: 8px;">
+          <p><strong>Email:</strong> <a href="mailto:you@example.com" style="color: var(--accent-color); text-decoration: none;">you@example.com</a></p>
+          <p style="margin-top: 1rem;"><strong>GitHub:</strong> <a href="#" style="color: var(--accent-color); text-decoration: none;">github.com/yourusername</a></p>
+          <p style="margin-top: 1rem;"><strong>LinkedIn:</strong> <a href="#" style="color: var(--accent-color); text-decoration: none;">linkedin.com/in/yourusername</a></p>
+        </div>
+      </section>
 
-    <section id="contact" class="section">
-      <h2>Contact</h2>
-      <p>Feel free to reach out to me via email or connect with me on professional networks.</p>
-      <div style="margin-top: 2rem; background-color: #252526; padding: 2rem; border-radius: 8px;">
-        <p><strong>Email:</strong> <a href="mailto:you@example.com" style="color: var(--accent-color); text-decoration: none;">you@example.com</a></p>
-        <p style="margin-top: 1rem;"><strong>GitHub:</strong> <a href="#" style="color: var(--accent-color); text-decoration: none;">github.com/yourusername</a></p>
-        <p style="margin-top: 1rem;"><strong>LinkedIn:</strong> <a href="#" style="color: var(--accent-color); text-decoration: none;">linkedin.com/in/yourusername</a></p>
-      </div>
-    </section>
-
-  </main>
+    </main>
+  </div>
 
   <script>
     function openSection(evt, sectionName) {
@@ -375,7 +392,7 @@
       document.getElementById(sectionName).classList.add("active");
       evt.currentTarget.classList.add("active");
       
-      // Optional: Scroll to top of container when a new tab is clicked
+      // Optional: Scroll to top of the content area so the user is at the start of the new tab
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
   </script>
