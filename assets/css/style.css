@@ -344,3 +344,32 @@ time {
     grid-template-columns: 1fr;
   }
 }
+
+/* --- SKILL BADGES --- */
+.skill-badge-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-bottom: 2rem;
+}
+
+.skill-badge {
+    display: inline-block;
+    padding: 0.4rem 1.2rem;
+    background-color: var(--card-bg); /* Fondo igual al de tus tarjetas */
+    color: var(--text-main);
+    border: 1px solid var(--border-color); /* Borde sutil por defecto */
+    border-radius: 50px; /* Forma de píldora */
+    font-size: 0.85rem;
+    font-weight: 500;
+    cursor: default;
+    transition: all 0.3s ease; /* Transición suave, igual que en tus service-items */
+}
+
+.skill-badge:hover {
+    border-color: var(--accent-color); /* El borde cambia a tu color teal */
+    color: var(--accent-color); /* El texto también resalta en teal */
+    background-color: var(--bg-color); /* Ligero contraste en el fondo al pasar el ratón */
+    transform: translateY(-3px); /* Pequeño salto hacia arriba, estilo interactivo */
+    box-shadow: 0 4px 10px rgba(0, 173, 181, 0.15); /* Sombra sutil con tu color de acento */
+}
